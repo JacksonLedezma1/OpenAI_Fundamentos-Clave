@@ -87,6 +87,7 @@ function crearMensaje(autor, contenido) {
     console.log(`[${msg.timestamp}] ${msg.autor}: ${msg.contenido}`);
   });
   
+
 // --- Ejemplo de hoisting ---
 console.log(hoistedFunction('¡Hola desde hoisting!'));
 function hoistedFunction(mensaje) {
