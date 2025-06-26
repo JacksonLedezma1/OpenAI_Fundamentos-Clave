@@ -88,7 +88,6 @@ function crearMensaje(autor, contenido) {
     console.log(`[${msg.timestamp}] ${msg.autor}: ${msg.contenido}`);
   });
   
-<<<<<<< Updated upstream
 // --- Ejemplo de hoisting ---
 console.log(hoistedFunction('¡Hola desde hoisting!'));
 function hoistedFunction(mensaje) {
@@ -124,9 +123,3 @@ obtenerRespuestaAPI('¿Cuál es la capital de Francia?', function(respuesta) {
   // Aquí iría el código para mostrar en el DOM
 });
 
-
-
-=======
- //hola mundo
-  
->>>>>>> Stashed changes
