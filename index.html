@@ -40,6 +40,7 @@
             />
             <h2 class="sideBar__title">Start talking!</h2>
             <button class="sideBar__button">Past Conversations</button>
+            <button class="sideBar__button sideBar__button--spaced">New conversation</button>
           </div>
           <!-- Side bar navigation buttons -->
           <ul class="sideBar__list">
@@ -84,101 +85,9 @@
         <!-- Messages -->
         <div class="contentArea">
           <!-- Display messages -->
-          <div class="chatMessages">
-            <div class="userChat">
-              <div class="upperChat">
-                <img
-                  class="upperChat__userImage"
-                  src="./assets/icons/messages/user-svgrepo-com.svg"
-                  alt=""
-                />
-                <span class="upperChat__userName">User says:</span>
-              </div>
-              <div class="message">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Perspiciatis, nisi!
-              </div>
-            </div>
-            <div class="aiChat">
-              <div class="upperChat">
-                <img
-                  class="upperChat__userImage upperChat__userImage--ai"
-                  src="./assets/icons/sideBar/share-circle-svgrepo-com.svg"
-                  alt=""
-                />
-                <span class="upperChat__userName">AI says:</span>
-              </div>
-              <div class="message">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Dolorum doloribus non tempora voluptate! Dolores doloremque
-                eveniet sint ut ratione non rem illum excepturi autem, dolor
-                omnis! Consequuntur maiores dolore quibusdam odit, voluptas
-                exercitationem? Facere incidunt voluptates illum ad amet qui
-                aut, ullam hic veritatis dignissimos quia totam ratione saepe?
-                Perferendis velit ex magnam optio omnis ab fuga esse expedita
-                blanditiis voluptate laudantium nisi unde magni ratione dolor
-                ullam quaerat itaque sint, obcaecati mollitia corrupti. Iste
-                totam quasi impedit eius ipsam necessitatibus reiciendis,
-                tempora modi nesciunt officia cumque, explicabo at. Ipsa at
-                nulla, voluptatum nihil nisi placeat eveniet saepe, vitae fugiat
-                debitis quo explicabo et aut, necessitatibus ratione suscipit
-                eius voluptas provident excepturi dignissimos ut veniam
-                distinctio dolores? Error, vero consectetur at qui magnam iusto
-                dolor doloribus, molestias eum facilis iste ducimus itaque.
-                Atque ut voluptate necessitatibus facilis ab temporibus
-                recusandae similique, officia adipisci labore nesciunt magnam
-                iste quos perspiciatis alias incidunt sit debitis. Ullam
-                assumenda et, architecto temporibus porro quos officiis alias
-                dignissimos voluptas fuga quibusdam in repellendus amet labore
-                vitae aperiam culpa ex aliquid ab ducimus modi. Facilis
-                laboriosam velit dolorum debitis vitae laudantium, quos, totam
-                ut atque adipisci ullam voluptatibus. Perferendis dicta
-                obcaecati sapiente ullam delectus voluptatum exercitationem. Nam
-                excepturi quod tempora deserunt debitis commodi nesciunt quasi?
-                Repellendus vel, ipsam accusantium eaque aspernatur iusto
-                incidunt dicta aliquam, amet repellat dolor laboriosam ad
-                reiciendis? Obcaecati eum ea deleniti. Aliquam sequi architecto
-                nisi molestias, dicta maiores placeat similique praesentium
-                alias? Odit cupiditate tenetur magnam provident laborum!
-                Praesentium tenetur, possimus porro libero non soluta autem
-                nihil tempora, laborum expedita atque suscipit, sapiente
-                similique doloremque. Rem magnam enim odit iusto illo
-                repellendus dolores asperiores, cum ducimus nemo animi quod
-                doloremque quia nisi numquam possimus ab, quo laboriosam. Ipsam
-                voluptatum explicabo repellat laudantium ad nam quas ipsa. Quas
-                saepe provident voluptate quam modi praesentium maiores
-                recusandae quaerat, soluta, sit eligendi facere, vero minima
-                deserunt ipsam? Odit qui recusandae earum ea ullam molestiae
-                amet repudiandae iure possimus suscipit saepe tempore, pariatur
-                reprehenderit nisi adipisci consequuntur repellendus odio,
-                laudantium ad optio! Neque debitis, accusantium distinctio
-                assumenda expedita reiciendis praesentium! Doloribus fugiat sunt
-                voluptate animi illo architecto nihil delectus iusto. Aut neque
-                quod obcaecati illum ut veritatis, et inventore quos
-                perferendis, tenetur laudantium reprehenderit quam eligendi
-                ratione libero alias adipisci? Dolorem culpa eius consequuntur
-                unde asperiores est suscipit tempora consectetur nulla iusto
-                quae optio quos maiores quibusdam, labore accusantium soluta!
-                Eum nesciunt amet assumenda quibusdam earum beatae! Obcaecati
-                consectetur numquam sapiente perferendis, molestiae assumenda,
-                illum fuga, libero alias similique quasi cupiditate beatae
-                quaerat. Eos incidunt culpa soluta laudantium facilis
-                perferendis asperiores cum nulla vitae corporis! Eum cupiditate
-                earum repellendus animi ipsum error, ad, sint nihil, facilis in
-                sunt enim dicta minima impedit! Doloribus recusandae, aut
-                deleniti asperiores unde est accusantium assumenda iste
-                excepturi omnis atque obcaecati doloremque, repellat quo
-                necessitatibus at tempora maxime culpa possimus commodi ullam
-                perspiciatis aperiam ipsam! Est, cum, soluta nihil nemo, quasi
-                vel saepe adipisci nobis accusamus amet alias inventore ullam
-                dicta natus ea praesentium! Impedit doloremque, perspiciatis
-                error dolorum pariatur suscipit.
-              </div>
-            </div>
-          </div>
-          <!-- Input bar -->
+          <div class="chatMessages"></div>
+          <!-- Input area below messages -->
           <div class="chatInput">
-            <!-- Text field input -->
             <input
               class="chatInput__input"
               type="text"
@@ -196,6 +105,8 @@
         </div>
       </section>
     </main>
+    <script src="./assets/marked.min.js"></script>
+    <script src="./openai_key.js"></script>
+    <script src="./app.js"></script>
 </body>
-<script src="./app.js"></script>
 </html>
