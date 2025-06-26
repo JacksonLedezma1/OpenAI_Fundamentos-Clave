@@ -156,6 +156,10 @@ main {
   color: white;
 }
 
+.sideBar__button--spaced {
+  margin-top: 10px;
+}
+
 /* Lower side bar (navigation buttons) */
 
 .sideBar__list {

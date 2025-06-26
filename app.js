@@ -1,4 +1,3 @@
-
 //  Modela los mensajes como objetos JS con propiedades autor, contenido y timestamp.
 
 
@@ -104,22 +103,112 @@ function crearContadorPreguntas() {
 }
 
 const contarPregunta = crearContadorPreguntas();
-// Ejemplo de uso:
-// contarPregunta(); // 1
-// contarPregunta(); // 2
 
-// --- Callback al recibir respuesta de la API (simulado) ---
-function obtenerRespuestaAPI(pregunta, callback) {
-  // Simulación de respuesta asíncrona
-  setTimeout(() => {
-    const respuesta = `Respuesta a: ${pregunta}`;
+// --- Callback al recibir respuesta de la API (OpenAI real) ---
+async function obtenerRespuestaAPI(pregunta, callback) {
+  if (typeof OPENAI_API_KEY === 'undefined') {
+    callback('No se encontró la clave de API.');
+    return;
+  }
+  const apiKey = OPENAI_API_KEY;
+  const endpoint = 'https://api.openai.com/v1/chat/completions';
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${apiKey}`
+  };
+  const body = JSON.stringify({
+    model: 'gpt-3.5-turbo',
+    messages: [
+      { role: 'system', content: 'Eres un asistente útil.' },
+      { role: 'user', content: pregunta }
+    ]
+  });
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body
+    });
+    if (!response.ok) throw new Error('Error en la API');
+    const data = await response.json();
+    const respuesta = data.choices[0].message.content;
     callback(respuesta);
-  }, 500);
+  } catch (e) {
+    callback('Error al conectar con OpenAI.');
+  }
 }
 
-// Ejemplo de uso:
-obtenerRespuestaAPI('¿Cuál es la capital de Francia?', function(respuesta) {
-  console.log('Callback ejecutado antes de mostrar en el DOM:', respuesta);
-  // Aquí iría el código para mostrar en el DOM
+// --- Lógica para el chat interactivo en el DOM ---
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.querySelector('.chatInput__input');
+  const sendBtn = document.querySelector('.chatInput button');
+  const chatMessages = document.querySelector('.chatMessages');
+  // Selección de los botones ya existentes en el HTML
+  const sideBarButtons = document.querySelectorAll('.sideBar__button');
+  const pastBtn = sideBarButtons[0];
+  const newConvBtn = sideBarButtons[1];
+
+  // Al recargar, limpiar historial
+  localStorage.removeItem('historialChat');
+
+  // Mostrar historial solo cuando se pulse el botón
+  function mostrarHistorial() {
+    chatMessages.innerHTML = '';
+    const historial = cargarHistorial();
+    if (historial.length === 0) {
+      chatMessages.innerHTML = '<div style="color:#888;text-align:center;margin:2em 0;">No hay conversaciones previas.</div>';
+      return;
+    }
+    historial.forEach(msg => {
+      agregarMensajeAlDOM(msg.autor, msg.contenido);
+    });
+  }
+
+  // Agrega un mensaje al DOM
+  function agregarMensajeAlDOM(autor, contenido) {
+    const div = document.createElement('div');
+    div.className = autor === 'User' ? 'userChat' : 'aiChat';
+    div.innerHTML = `
+      <div class="upperChat">
+        <img class="upperChat__userImage${autor !== 'User' ? ' upperChat__userImage--ai' : ''}"
+          src="${autor === 'User' ? './assets/icons/messages/user-svgrepo-com.svg' : './assets/icons/sideBar/share-circle-svgrepo-com.svg'}" alt="" />
+        <span class="upperChat__userName">${autor} says:</span>
+      </div>
+      <div class="message">${contenido}</div>
+    `;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Enviar mensaje
+  function enviarMensaje() {
+    const texto = input.value.trim();
+    if (!texto) return;
+    const num = contarPregunta();
+    agregarMensaje('User', texto);
+    agregarMensajeAlDOM('User', texto);
+    input.value = '';
+    obtenerRespuestaAPI(texto, function(respuesta) {
+      agregarMensaje('AI', respuesta);
+      agregarMensajeAlDOM('AI', respuesta + ` <span style='font-size:0.8em;color:#888;'>(Pregunta #${num})</span>`);
+    });
+  }
+
+  sendBtn.addEventListener('click', enviarMensaje);
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') enviarMensaje();
+  });
+
+  // Al cargar, NO mostrar historial
+  chatMessages.innerHTML = '<div style="color:#888;text-align:center;margin:2em 0;">¡Empieza una nueva conversación!</div>';
+
+  // Mostrar historial solo al pulsar el botón
+  pastBtn.addEventListener('click', mostrarHistorial);
+
+  // Nueva conversación: limpia mensajes y localStorage
+  newConvBtn.addEventListener('click', function() {
+    localStorage.removeItem('historialChat');
+    chatMessages.innerHTML = '<div style="color:#888;text-align:center;margin:2em 0;">¡Empieza una nueva conversación!</div>';
+  });
 });
 
